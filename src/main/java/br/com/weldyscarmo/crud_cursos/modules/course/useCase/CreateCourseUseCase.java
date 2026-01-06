@@ -12,6 +12,7 @@ public class CreateCourseUseCase {
     private CourseRepository courseRepository;
 
     public CourseEntity execute(CourseEntity courseEntity){
+        courseEntity.setActive(true);
         return this.courseRepository.save(courseEntity);
     }
 }

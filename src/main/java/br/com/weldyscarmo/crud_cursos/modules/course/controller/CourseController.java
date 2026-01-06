@@ -2,10 +2,7 @@ package br.com.weldyscarmo.crud_cursos.modules.course.controller;
 
 import br.com.weldyscarmo.crud_cursos.modules.course.CourseEntity;
 import br.com.weldyscarmo.crud_cursos.modules.course.dto.UpdateCourseDTO;
-import br.com.weldyscarmo.crud_cursos.modules.course.useCase.CreateCourseUseCase;
-import br.com.weldyscarmo.crud_cursos.modules.course.useCase.DeleteCourseUseCase;
-import br.com.weldyscarmo.crud_cursos.modules.course.useCase.ListCourseUseCase;
-import br.com.weldyscarmo.crud_cursos.modules.course.useCase.UpdateCourseUseCase;
+import br.com.weldyscarmo.crud_cursos.modules.course.useCase.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +26,9 @@ public class CourseController {
     @Autowired
     private DeleteCourseUseCase deleteCourseUseCase;
 
+    @Autowired
+    private ToggleActiveUseCase toggleActiveUseCase;
+
     @PostMapping("/")
     public CourseEntity create(@Valid @RequestBody CourseEntity courseEntity){
         return this.createCourseUseCase.execute(courseEntity);
@@ -47,5 +47,10 @@ public class CourseController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable UUID id){
         this.deleteCourseUseCase.execute(id);
+    }
+
+    @PatchMapping("/{id}/active")
+    public Boolean toggleActive(@PathVariable UUID id){
+        return this.toggleActiveUseCase.execute(id);
     }
 }
