@@ -3,6 +3,7 @@ package br.com.weldyscarmo.crud_cursos.modules.course.useCase;
 import br.com.weldyscarmo.crud_cursos.modules.course.CourseEntity;
 import br.com.weldyscarmo.crud_cursos.modules.course.CourseRepository;
 import br.com.weldyscarmo.crud_cursos.modules.course.dto.UpdateCourseDTO;
+import br.com.weldyscarmo.crud_cursos.modules.exceptions.BusinessException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class UpdateCourseUseCase {
     public CourseEntity execute(UpdateCourseDTO updateCourseDTO, UUID id){
         CourseEntity courseEntity = this.courseRepository.findById(id)
                 .orElseThrow(() -> {
-                    throw new RuntimeException("Curso não encontrado");
+                    throw new BusinessException("Curso não encontrado");
                 });
 
         if (updateCourseDTO.getName() != null) {

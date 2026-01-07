@@ -4,6 +4,7 @@ import br.com.weldyscarmo.crud_cursos.modules.course.CourseEntity;
 import br.com.weldyscarmo.crud_cursos.modules.course.dto.UpdateCourseDTO;
 import br.com.weldyscarmo.crud_cursos.modules.course.useCase.*;
 import jakarta.validation.Valid;
+import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,8 +36,9 @@ public class CourseController {
     }
 
     @GetMapping("/")
-    public List<CourseEntity> getCourses(){
-        return this.listCourseUseCase.execute();
+    public List<CourseEntity> getCourses(@RequestParam(required = false) String name,
+                                         @RequestParam(required = false) String category){
+        return this.listCourseUseCase.execute(name, category);
     }
 
     @PutMapping("/{id}")

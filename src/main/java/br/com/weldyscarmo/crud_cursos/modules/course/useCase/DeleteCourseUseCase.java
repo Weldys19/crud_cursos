@@ -1,6 +1,7 @@
 package br.com.weldyscarmo.crud_cursos.modules.course.useCase;
 
 import br.com.weldyscarmo.crud_cursos.modules.course.CourseRepository;
+import br.com.weldyscarmo.crud_cursos.modules.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class DeleteCourseUseCase {
     public void execute(UUID id){
         var deleteCourse = this.courseRepository.findById(id)
                 .orElseThrow(() -> {
-                    throw new RuntimeException("Curso não encontrado");
+                    throw new BusinessException("Curso não encontrado");
                 });
 
         this.courseRepository.delete(deleteCourse);
